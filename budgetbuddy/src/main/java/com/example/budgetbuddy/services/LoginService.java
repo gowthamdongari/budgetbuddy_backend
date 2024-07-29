@@ -31,15 +31,20 @@ public class LoginService implements UserDetailsService {
     }
 
     public  boolean registration(RegisterRequest registerRequest){
-          if(usersRepository.existsByEmail(registerRequest.email())){
-              return  false;
-          }
-        Users users = new Users();
-        users.setEmail(registerRequest.email());
-        users.setName(registerRequest.name());
-        users.setPasswordHash(passwordEncoder.encode(registerRequest.password()));
-        usersRepository.save(users);
-        return  true; 
+        try{
+            if(usersRepository.existsByEmail(registerRequest.email())){
+                return  false;
+            }
+            Users users = new Users();
+            users.setEmail(registerRequest.email());
+            users.setName(registerRequest.name());
+            users.setPasswordHash(passwordEncoder.encode(registerRequest.password()));
+            usersRepository.save(users);
+            return  true;
+        }catch (Exception e){
+            System.out.println(e);
+            return  false;
+        }
     }
 
     public AuthResponse login(LoginRequest loginRequest){

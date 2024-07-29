@@ -33,7 +33,7 @@ public class Users  implements UserDetails, OAuth2User {
     @Column(name = "provider_id")
     private String providerId;
 
-    @Column(name = "registered_at", nullable = false, updatable = false)
+    @Column(name = "registered_at", updatable = false)
     private LocalDateTime registeredAt;
 
     public Long id() {
